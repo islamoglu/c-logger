@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define C_LOGGER_FORMAT 0xFF
 #include "c-logger.h"
 #define __USE_GNU
 #include <pthread.h>

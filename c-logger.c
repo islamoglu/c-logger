@@ -27,8 +27,8 @@ int c_logger_level = DEFAULT_LOG_LEVEL;
 
 const char* c_logger_str[C_LOGGER_LEVEL_MAX + 1] = {
     "MIN",
-    "TRACE",
     "DEBUG",
+    "TRACE",
     "INFO",
     "WARN",
     "ERROR",
@@ -138,9 +138,7 @@ void* logger_deamon_thread(void * data)
             }
 
             bytes_read = read(events[i].data.fd, read_buffer, length);
-
             read_buffer[bytes_read] = '\0';
-
             write(log_fd, read_buffer, bytes_read);
         }
     }
@@ -189,7 +187,6 @@ int check_and_init_logger_deamon(int level, char* file_path)
         pthread_mutex_lock(&logger_global_lock);
 
         if (logger_global != NULL) {
-            /* initialize from other */
             pthread_mutex_unlock(&logger_global_lock);
             rc = 0;
         }

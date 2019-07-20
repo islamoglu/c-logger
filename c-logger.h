@@ -8,7 +8,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+    
+/*
+ * log formatter defines
+ */
 #define C_LOGGER_TIME 
 #undef C_LOGGER_THREAD_NAME
 #define C_LOGGER_THREAD_ID
@@ -17,6 +20,9 @@ extern "C" {
 #undef C_LOGGER_FUNCTION
 #define C_LOGGER_LINE 
     
+/*
+ * log level enums
+ */
 typedef enum {
     C_LOGGER_LEVEL_MIN,
     C_LOGGER_DEBUG,
@@ -30,8 +36,21 @@ c_logger_level_enum_t;
 
 extern int c_logger_level;
 
-int c_logger_init(int level, char* file_path);
+/*
+ * init main logger with given log_level and log_file_path
+ * this function is optional
+ */
+int c_logger_init(int level, char* log_file_path);
+
+/*
+ * log_level setter
+ */
 int set_logger_level(int level);
+
+/*
+ * logging function, don't use
+ * use logging macros
+ */
 void c_logger(c_logger_level_enum_t level, 
 #ifdef C_LOGGER_TIME
               struct timespec* time, 
@@ -81,6 +100,9 @@ void c_logger(c_logger_level_enum_t level,
     }\
 } 
 
+/*
+ * logging macros
+ */
 #define trace(format,args...) logger(C_LOGGER_TRACE,format,##args)
 #define debug(format,args...) logger(C_LOGGER_DEBUG,format,##args)
 #define info(format,args...) logger(C_LOGGER_INFO,format,##args)

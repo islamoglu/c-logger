@@ -288,9 +288,9 @@ logger_t* get_logger(void)
     return logger;
 }
 
-int c_logger_init(int level, char* file_path)
+int c_logger_init(int level, char* log_file_path)
 {
-    if (check_and_init_logger_deamon(level, file_path) < 0) {
+    if (check_and_init_logger_deamon(level, log_file_path) < 0) {
         BOOM;
         return -1;
     }

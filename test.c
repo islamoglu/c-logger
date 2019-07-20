@@ -37,9 +37,9 @@ int main(int argc, char** argv)
 {
     int i = 0;
     pthread_t t1;
-
-    c_logger_init(C_LOGGER_INFO, NULL);
-
+/*
+    c_logger_init(C_LOGGER_INFO, "t.xt");
+*/
     info("test");
 
     for (i = 0; i < THREAD_POOL_SIZE; i++) {

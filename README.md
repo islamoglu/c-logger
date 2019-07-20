@@ -1,2 +1,2 @@
 # c-logger
-Logger mechanism for c/c++
+Logger mechanism for C and C++

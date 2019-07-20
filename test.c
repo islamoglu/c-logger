@@ -7,25 +7,24 @@
 #define __USE_GNU
 #include <pthread.h>
 
-#define THREAD_POOL_SIZE 64
-#define THREAD_LOOP_COUNT 64
+#define THREAD_POOL_SIZE 3
+#define THREAD_LOOP_COUNT 3
 
 void func(void)
 {
-    int i;
-
-    warning("12345678901234567890123456789012345678901234567890:%d", i++);
+    warning("----------------------------------------------------");
 }
 
 void* thread(void* a)
 {
     int i = 0;
 
-    for (i = 0; i < THREAD_LOOP_COUNT; i < 0) {
-        info("12345678901234567890123456789012345678901234567890:%d", i++);
+    for (i = 0; i < THREAD_LOOP_COUNT; i++) {
+        info("12345678901234567890123456789012345678901234567890:%d", i);
 
         func();
     }
+    sleep(5);
 
     return NULL;
 }

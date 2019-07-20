@@ -59,19 +59,19 @@ void c_logger(c_logger_level_enum_t level,
 #ifdef C_LOGGER_FILE
     #define LOGGER_FILE_ARG __FILE__,
 #else
-              #define LOGGER_FILE_ARG
+    #define LOGGER_FILE_ARG
 #endif
 
 #ifdef C_LOGGER_FUNCTION
     #define LOGGER_FUNC_ARG __FUNCTION__,
 #else
-              #define LOGGER_FUNC_ARG
+    #define LOGGER_FUNC_ARG
 #endif
 
 #ifdef C_LOGGER_LINE
     #define LOGGER_LINE_ARG __LINE__,
 #else
-              #define LOGGER_LINE_ARG
+    #define LOGGER_LINE_ARG
 #endif
                       
 #define logger(level,format,args...) {\

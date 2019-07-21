@@ -1,5 +1,5 @@
 # c-logger
-Logger mechanism for C and C++
+Simple logging library for C and C++
 
 This library creates a logging thread and creates pipe connections between each thread and logging thread.
 Logging thread listen all threads and writes given log datas to a file or /dev/tty.

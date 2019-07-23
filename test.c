@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "c-logger.h"
-#define __USE_GNU
+#ifndef __cplusplus
+    #define __USE_GNU
+#endif
 #include <pthread.h>
 
 #define THREAD_POOL_SIZE 3

@@ -13,7 +13,9 @@
 #include <fcntl.h>
 #include <limits.h>
 #include "c-logger.h"
-#define __USE_GNU
+#ifndef __cplusplus
+    #define __USE_GNU
+#endif
 #include <pthread.h>
 
 #define BOOM fprintf(stderr,"%s:%d:%s\n",__FUNCTION__,__LINE__,strerror(errno));
@@ -112,8 +114,8 @@ int open_logger_stream(char* file_path)
             BOOM;
             return -1;
         }
-        write(fd, "log file open error, "DEFAULT_LOG_FILE" is going to use for logging\n",
-              strlen("log file open error, "DEFAULT_LOG_FILE" is going to use for logging\n"));
+        write(fd, "log file open error, " DEFAULT_LOG_FILE " is going to use for logging\n",
+              strlen("log file open error, " DEFAULT_LOG_FILE " is going to use for logging\n"));
     }
 
     return fd;
@@ -179,7 +181,7 @@ int real_init_logger_deamon()
     }
 }
 
-int check_and_init_logger_deamon(int level, char* file_path)
+int check_and_init_logger_deamon(int level, const char* file_path)
 {
     int rc = 0;
 
@@ -225,7 +227,7 @@ void * init_logger(void)
     int pipes[2];
     struct epoll_event event;
 
-    if (check_and_init_logger_deamon(DEFAULT_LOG_LEVEL, DEFAULT_LOG_FILE) < 0) {
+    if (check_and_init_logger_deamon( DEFAULT_LOG_LEVEL , DEFAULT_LOG_FILE ) < 0) {
         BOOM;
         return NULL;
     }
@@ -276,7 +278,7 @@ free:
     return NULL;
 }
 
-logger_t* get_logger(void)
+void* get_logger(void)
 {
     (void) pthread_once(&logger_key_once, make_logger_key);
 
@@ -288,7 +290,7 @@ logger_t* get_logger(void)
     return logger;
 }
 
-int c_logger_init(int level, char* log_file_path)
+int c_logger_init(int level, const char* log_file_path)
 {
     if (check_and_init_logger_deamon(level, log_file_path) < 0) {
         BOOM;
@@ -318,7 +320,7 @@ void c_logger(c_logger_level_enum_t level,
 #endif
         const char* format, ...)
 {
-    logger_t* logger = get_logger();
+    logger_t* logger = (logger_t*)get_logger();
     char write_buffer[BUFF_SIZE];
     int len = 0;
 

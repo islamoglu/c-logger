@@ -40,7 +40,7 @@ extern int c_logger_level;
  * init main logger with given log_level and log_file_path
  * this function is optional
  */
-int c_logger_init(int level, char* log_file_path);
+int c_logger_init(int level, const char* log_file_path);
 
 /*
  * log_level setter

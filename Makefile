@@ -11,7 +11,7 @@ CXX_PROG = cxx-logger
 
 C_FLAGS = -Werror -g 
 CXX_FLAGS = -Werror -g 
-LD_FLAGS = -lpthread
+LD_FLAGS = -lpthread -lrt
 
 all: $(C_PROG) $(CXX_PROG)
 

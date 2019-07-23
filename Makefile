@@ -2,7 +2,7 @@
 CC = gcc
 CXX = g++
 
-SRCS = c-logger.c test.c
+SRCS = c-logger.c example.c
 HDRS = c-logger.h
 OBJS = $(SRCS:.c=.o)
 

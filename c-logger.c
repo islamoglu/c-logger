@@ -23,7 +23,6 @@
 #define BUFF_SIZE 16384
 #define THREAD_NAME_SIZE 256
 #define DEFAULT_LOG_LEVEL C_LOGGER_INFO
-#define DEFAULT_LOG_FILE "/dev/tty"
 
 int c_logger_level = DEFAULT_LOG_LEVEL;
 
@@ -109,13 +108,13 @@ int open_logger_stream(char* file_path)
     }
 
     if (fd < 0) {
-        fd = open(DEFAULT_LOG_FILE, O_WRONLY | O_APPEND);
+        fd = fileno(stdout);
         if (fd < 0) {
             BOOM;
             return -1;
         }
-        write(fd, "log file open error, " DEFAULT_LOG_FILE " is going to use for logging\n",
-              strlen("log file open error, " DEFAULT_LOG_FILE " is going to use for logging\n"));
+        write(fd, "log file open error, stdout is going to use for logging\n",
+              strlen("log file open error, stdout is going to use for logging\n"));
     }
 
     return fd;
@@ -206,9 +205,6 @@ int check_and_init_logger_deamon(int level, const char* file_path)
             if (file_path != NULL) {
                 logger_global->file_path = strdup(file_path);
             }
-            else {
-                logger_global->file_path = strdup(DEFAULT_LOG_FILE);
-            }
 
             rc = real_init_logger_deamon();
             if (rc < 0) {
@@ -227,7 +223,7 @@ void * init_logger(void)
     int pipes[2];
     struct epoll_event event;
 
-    if (check_and_init_logger_deamon( DEFAULT_LOG_LEVEL , DEFAULT_LOG_FILE ) < 0) {
+    if (check_and_init_logger_deamon( DEFAULT_LOG_LEVEL , NULL ) < 0) {
         BOOM;
         return NULL;
     }
